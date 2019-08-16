@@ -38,7 +38,7 @@ networks (as we are not considering network 3).
 ## Outputs
 
 Significant modules for each cluster file are located at the
-same path with the file extension modified to ".sig".
+same path with the file extension modified to "\_sig".
 
 Deanonymized cluster files for network N with ran with k clusters
 are located at: outputs/spectral/netN/k.out.
@@ -49,19 +49,25 @@ corresponding significant modules file is outputs/spectral/net1/100.sig.
 
 Unmerged genecentric cluster files for network N located at: 
 
-- outputs/genecentric/netN/positive\_unmerged
-- outputs/genecentric/netN/negative\_unmerged
+- outputs/genecentric/netN/positive\_unmerged.out
+- outputs/genecentric/netN/negative\_unmerged.out
+
+Note that these are the result of running genecentric after
+splitting each network into k = 20 clusters or k = 50 clusters for
+network 4.
 
 Merged genecentric cluster files with spectral cluster with k clusters
 for network N are located at:
 
-- outputs/genecentric/netN/negative\_k\_merged
-- outputs/genecentric/netN/negative\_k\_final
-- outputs/genecentric/netN/positive\_k\_merged
-- outputs/genecentric/netN/positive\_k\_final
+- outputs/genecentric/netN/merged\_negative\_k\_deanon
+- outputs/genecentric/netN/merged\_positive\_k\_deanon
 
-The difference between merged and final is that final is after
-performing recursive splitting on clusters of size > 100.
+Example: outputs/genecentric/net2/positive\_unmerged.out is the
+unmerged genecentric cluster constructed by splitting network 2 into
+k = 20 clusters, running genecentric on each cluster, and integrating 
+them all together. We take this unmerged file and merge it with
+the output of spectral clustering with k = 200 to produce
+outputs/genecentric/net2/merged\_positive\_200\_deanon.
 
 ## Expected TODO
 
@@ -96,14 +102,3 @@ to do it semi-manually.
 Slight modifications have to be made for the experiment1.sh script 
 for network 4 as there is only one connected component in the DSD graph 
 and the file name is different.
-
-
-# CURRENT STATE
-
-1, 2, 6 => postivie genecentric => dank
-4, 5 => spectral clustering failed :(
-
-So rerunning 4, 5
-
-1,2,6 i fucked up by overwriting components so have to redo that before i can 
-negate everything i should still cehck if the unmerged file matches the previous output
